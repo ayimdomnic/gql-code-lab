@@ -1,0 +1,68 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Post {
+  """Unique identifier for the post"""
+  id: ID
+
+  """Title of the post"""
+  title: String!
+
+  """Content of the post"""
+  content: String!
+
+  """If the post is published or not"""
+  published: Boolean
+
+  """Unique identifier for the author"""
+  authorId: String
+}
+
+type User {
+  id: ID!
+  name: String!
+  email: String!
+  posts: [Post!]!
+}
+
+type Query {
+  hello: String!
+
+  """Find a user by id"""
+  findUser(id: String!): UserResult!
+}
+
+union UserResult = User | UserNotFoundError
+
+type UserNotFoundError {
+  message: String!
+  errorCode: String!
+}
+
+type Mutation {
+  """Create a new post"""
+  createPost(input: CreatePostInput!): Post!
+
+  """Create a new user"""
+  createUser(input: CreateUserInput!): User!
+}
+
+input CreatePostInput {
+  """Title of the post"""
+  title: String!
+
+  """Content of the post"""
+  content: String!
+
+  """If the post is published or not"""
+  published: Boolean
+
+  """Unique identifier for the author"""
+  authorId: String
+}
+
+input CreateUserInput {
+  name: String!
+  email: String!
+}
